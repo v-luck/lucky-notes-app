@@ -30,20 +30,20 @@ public class FileManager {
         }
     }
 
-    public void searchForFile(String search, String path, String[] fileArray) {
-        for (String file : fileArray) {
-            System.out.println(file);
-            if (file.contains(search)) {
-                System.out.println(file);
-            }
-            //String fileDirectory = path + File.separator + file;
-            //File searchedDirectory = new File(fileDirectory);
-            //String[] searchedDirectoryList = searchedDirectory.list();
-            //if (searchedDirectory.isDirectory()) {
-            //    searchForFile(search, fileDirectory, searchedDirectoryList);
-            //}
-        }
-    }
+    //public void searchForFile(String search, String path, String[] fileArray) {
+    //    for (String file : fileArray) {
+    //        System.out.println(file);
+    //        if (file.contains(search)) {
+    //            System.out.println(file);
+    //        }
+    //        String fileDirectory = path + File.separator + file;
+    //        File searchedDirectory = new File(fileDirectory);
+    //        String[] searchedDirectoryList = searchedDirectory.list();
+    //        if (searchedDirectory.isDirectory()) {
+    //            searchForFile(search, fileDirectory, searchedDirectoryList);
+    //        }
+    //    }
+    //}
 
     public void pathChange(String directory) {
         if (directoryExists(directory)) {
@@ -77,11 +77,11 @@ public class FileManager {
             case "listPath":
                 System.out.println("Current path is: " + path);
                 break;
-            case "search":
-                System.out.print("Enter word to search for: ");
-                String userInput = scanner.nextLine();
-                searchForFile(userInput, path, fileArray);
-                break;
+            //case "search":
+            //    System.out.print("Enter word to search for: ");
+            //    String userInput = scanner.nextLine();
+            //    searchForFile(userInput, path, fileArray);
+            //    break;
             default:
                 break;
         }
