@@ -4,18 +4,17 @@ import java.io.File;
 import java.util.Scanner;
 
 public class FileManager {
-    private String path;
-    private File file;
-    private String[] fileArray;
+    private String pathURL;
     private Scanner scanner;
+    private FileObject fileObject;
 
     public FileManager() {
-        scanner = new Scanner(System.in);
-        path = "C:\\";
-        file = new File(path);
-        fileArray = file.list();
+        this.scanner = new Scanner(System.in);
+        this.pathURL = "C:\\";
+        this.fileObject = new FileObject(pathURL);
     }
 
+    //Runs the program in a while loop until broken out of
     public void start() {
         while (true) {
             System.out.print("Insert command: ");
@@ -24,46 +23,63 @@ public class FileManager {
         }
     }
 
+    //Prints out all files in the current director of the file manager
     public void pathList() {
-        for (String pathname : fileArray) {
-            System.out.println(pathname);
+        for (File file: fileObject.getFileArray()) {
+            System.out.println(file.getName());
         }
     }
 
-    //public void searchForFile(String search, String path, String[] fileArray) {
-    //    for (String file : fileArray) {
-    //        System.out.println(file);
-    //        if (file.contains(search)) {
-    //            System.out.println(file);
-    //        }
-    //        String fileDirectory = path + File.separator + file;
-    //        File searchedDirectory = new File(fileDirectory);
-    //        String[] searchedDirectoryList = searchedDirectory.list();
-    //        if (searchedDirectory.isDirectory()) {
-    //            searchForFile(search, fileDirectory, searchedDirectoryList);
-    //        }
-    //    }
-    //}
-
+    //Changes the current directory of file manager to @param directory
     public void pathChange(String directory) {
         if (directoryExists(directory)) {
-            path += File.separator + directory;
-            file = new File(path);
-            fileArray = file.list();
+            this.pathURL += File.separator + directory;
+            fileObject = new FileObject(this.pathURL);
         } else {
             System.out.println("Directory does not exist. Path did not change.");
         }
     }
 
+    //Checks if folder contains a directory named @param checkDirectory
     public boolean directoryExists(String checkDirectory) {
-        for (String directory : fileArray) {
-            if (directory.equals(checkDirectory)) {
+        for (File directory : fileObject.getFileArray()) {
+            if (directory.getName().equals(checkDirectory)) {
                 return true;
             }
         }
         return false;
     }
 
+    //List all files in current/sub directories
+    public void listAllFiles(String pathURL) {
+        if (fileObject.getFileArray() != null) {
+            for (File file : fileObject.getFileArray()) {
+                if (file.isFile()) {
+                    System.out.println(file.getName());
+                } else if (file.isDirectory()) {
+                    listAllFiles(file.getAbsolutePath());
+                }
+            }
+        }
+    }
+
+    public void searchAll(String pathURL, String searchedString) {
+        FileObject fileObject = new FileObject(pathURL);
+        if (fileObject.getFileArray() != null) {
+            for (File file : fileObject.getFileArray()) {
+                if (file.isFile() && file.getName().contains(searchedString)) {
+                    System.out.println(file.getName());
+                } else if (file.isDirectory()) {
+                    if (file.getName().contains(searchedString)) {
+                        System.out.println(file.getName());
+                    }
+                    searchAll(file.getAbsolutePath(), searchedString);
+                }
+            }
+        }
+    }
+
+    //User inputted commands
     public void pathCommand(String commandName) {
         switch (commandName) {
             case "list":
@@ -75,13 +91,15 @@ public class FileManager {
                 pathChange(directory);
                 break;
             case "listPath":
-                System.out.println("Current path is: " + path);
+                System.out.println("Current path is: " + this.pathURL);
                 break;
-            //case "search":
-            //    System.out.print("Enter word to search for: ");
-            //    String userInput = scanner.nextLine();
-            //    searchForFile(userInput, path, fileArray);
-            //    break;
+            case "listAll":
+                listAllFiles(this.pathURL);
+                break;
+            case "search":
+                System.out.print("Search for given string: ");
+                String userSearch = scanner.nextLine();
+                searchAll(this.pathURL, userSearch);
             default:
                 break;
         }
