@@ -29,6 +29,9 @@ public class FileManager {
             System.out.println(file.getName());
         }
     }
+    public File[] pathListUI() {
+        return fileObject.getFileArray();
+    }
 
     //Changes the current directory of file manager to @param directory
     public void pathChange(String directory) {
