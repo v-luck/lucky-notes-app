@@ -45,6 +45,7 @@ public class UserInterface extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Project Notia");
         primaryStage.show();
+        System.out.println("test");
     }
 
 
