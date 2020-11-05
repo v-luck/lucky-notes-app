@@ -1,7 +1,7 @@
 package WindowManagerRemade;
 
 import WindowManager.FileObject;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.TreeItem;
 
 import java.io.File;
 
@@ -25,32 +25,42 @@ public class FileManager {
         return this.fileObject;
     }
 
+    public String retrunURL()  {
+        return this.pathURL;
+    }
+
     public File[] pathListUI() {
         return fileObject.getFileArray();
     }
 
-    public void listAllFiles(String pathURL, TreeView treeView) {
+    public void addTree(String pathURL, TreeItem treeItem) {
+        FileObject fileObject = new FileObject(pathURL);
         if (fileObject.getFileArray() != null) {
             for (File file : fileObject.getFileArray()) {
                 if (file.isFile()) {
-                    treeView.getChildren().add()
+                    treeItem.getChildren().add(new TreeItem<>(file.getName()));
+                } else if (file.isDirectory()) {
+                    TreeItem<String> treeDirectory = new TreeItem<>(file.getName());
+                    treeItem.getChildren().add(treeDirectory);
+                    addTree(file.getAbsolutePath(), treeDirectory);
                 }
             }
         }
     }
 
     ////List all files in current/sub directories
-    //public void listAllFiles(String pathURL) {
-    //    if (fileObject.getFileArray() != null) {
-    //        for (File file : fileObject.getFileArray()) {
-    //            if (file.isFile()) {
-    //                System.out.println(file.getName());
-    //            } else if (file.isDirectory()) {
-    //                listAllFiles(file.getAbsolutePath());
-    //            }
-    //        }
-    //    }
-    //}
+    public void listAllFiles(String pathURL) {
+        FileObject fileObject = new FileObject(pathURL);
+        if (fileObject.getFileArray() != null) {
+            for (File file : fileObject.getFileArray()) {
+                if (file.isFile()) {
+                    System.out.println(file.getName());
+                } else if (file.isDirectory()) {
+                    listAllFiles(file.getAbsolutePath());
+                }
+            }
+        }
+    }
 
     public void searchAll(String pathURL, String searchedString) {
         FileObject fileObject = new FileObject(pathURL);

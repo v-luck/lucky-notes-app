@@ -55,6 +55,7 @@ public class FileManager {
 
     //List all files in current/sub directories
     public void listAllFiles(String pathURL) {
+        FileObject fileObject = new FileObject(pathURL);
         if (fileObject.getFileArray() != null) {
             for (File file : fileObject.getFileArray()) {
                 if (file.isFile()) {
