@@ -10,7 +10,8 @@ public class FileManager {
     private FileObject fileObject;
 
     public FileManager() {
-        this.pathURL = "C:\\";
+        //this.pathURL = "C:\\";
+        this.pathURL = "C:\\Users\\bobba\\Documents\\Illustrator";
         this.fileObject = new FileObject(pathURL);
     }
 
