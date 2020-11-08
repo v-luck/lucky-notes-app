@@ -2,8 +2,6 @@ package WindowManagerRemade;
 
 public class Start {
     public static void main(String[] args) {
-        System.out.println("Hi");
-        FileManager fileManager = new FileManager();
-        fileManager.listAllFiles(fileManager.retrunURL());
+        FileBrowser fileBrowser = new FileBrowser("C:\\Users\\bobba\\Downloads\\rojas notes");
     }
 }

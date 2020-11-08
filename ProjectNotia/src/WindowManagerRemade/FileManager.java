@@ -34,6 +34,8 @@ public class FileManager {
         return fileObject.getFileArray();
     }
 
+
+
     public void addTree(String pathURL, TreeItem treeItem) {
         FileObject fileObject = new FileObject(pathURL);
         if (fileObject.getFileArray() != null) {

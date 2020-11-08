@@ -21,5 +21,9 @@ public class FileObject {
         return file;
     }
 
+    public String toString() {
+        return file.getName();
+    }
+
 
 }

@@ -6,9 +6,12 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.stage.Stage;
 
+import java.awt.event.MouseEvent;
+
 public class GraphicalUserInterface extends Application {
 
     private FileManager fileManager;
+    private FileBrowser fileBrowser;
 
     public GraphicalUserInterface() {
         fileManager = new FileManager();
@@ -21,20 +24,21 @@ public class GraphicalUserInterface extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Tree");
-        TreeItem<String> test = new TreeItem<>("test");
-        fileManager.addTree(fileManager.retrunURL(), test);
-
-        //for (File file : fileManager.pathListUI()) {
-        //    String itemName = file.getName();
-        //    test.getChildren().add(new TreeItem<>(itemName));
-        //}
-        TreeView treeView = new TreeView(test);
-
-
-        Scene scene = new Scene(treeView, 200, 200);
+        FileBrowser fileBrowser = new FileBrowser("C:\\Users\\bobba\\Documents\\ConnectAppCache");
+        TreeItem<String> treeItem = new TreeItem<>("Test");
+        fileBrowser.listFiles(treeItem);
+        TreeView treeView = new TreeView(treeItem);
+        treeView.setRoot(treeItem);
+        Scene scene = new Scene(treeView);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+    public void selectedItems(MouseEvent mouseEvent) {
+    }
+
+
+
 
 
 }
