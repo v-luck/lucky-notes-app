@@ -1,6 +1,6 @@
 package WindowManagerRemade;
 
-import WindowManager.FileObject;
+//import WindowManager.FileObject;
 import javafx.scene.control.TreeItem;
 
 import java.io.File;
